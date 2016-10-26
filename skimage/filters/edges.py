@@ -18,11 +18,6 @@ from ..restoration.uft import laplacian
 
 EROSION_SELEM = generate_binary_structure(2, 2)
 
-HSOBEL_WEIGHTS = np.array([[ 1, 2, 1],
-                           [ 0, 0, 0],
-                           [-1,-2,-1]]) / 4.0
-VSOBEL_WEIGHTS = HSOBEL_WEIGHTS.T
-
 HSCHARR_WEIGHTS = np.array([[ 3,  10,  3],
                             [ 0,   0,  0],
                             [-3, -10, -3]]) / 16.0
@@ -133,8 +128,12 @@ def sobel_h(image, mask=None):
 
     """
     assert_nD(image, 2)
+    u = np.array([[1.0, 2.0, 1.0]])
+    v = np.array([[1.0, 0.0, -1.0]])
+    kernel = u * v.transpose()
+    kernel /= 4.0
     image = img_as_float(image)
-    result = convolve(image, HSOBEL_WEIGHTS)
+    result = convolve(image, kernel)
     return _mask_filter_result(result, mask)
 
 
@@ -165,8 +164,12 @@ def sobel_v(image, mask=None):
 
     """
     assert_nD(image, 2)
+    u = np.array([[1.0, 2.0, 1.0]])
+    v = np.array([[1.0, 0.0, -1.0]])
+    kernel = v * u.transpose()
+    kernel /= 4.0
     image = img_as_float(image)
-    result = convolve(image, VSOBEL_WEIGHTS)
+    result = convolve(image, kernel)
     return _mask_filter_result(result, mask)
 
 
@@ -525,7 +528,7 @@ def laplace(image, ksize=3, mask=None):
 
     Notes
     -----
-    The Laplacian operator is generated using the function 
+    The Laplacian operator is generated using the function
     skimage.restoration.uft.laplacian().
 
     """
