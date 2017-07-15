@@ -31,11 +31,6 @@ def imread(fname, as_grey=False, plugin=None, flatten=None,
         candidate is found.  If not given and fname is a tiff file, the
         tifffile plugin will be used.
 
-    Other Parameters
-    ----------------
-    flatten : bool
-        Backward compatible keyword, superseded by `as_grey`.
-
     Returns
     -------
     img_array : ndarray
@@ -45,6 +40,9 @@ def imread(fname, as_grey=False, plugin=None, flatten=None,
 
     Other parameters
     ----------------
+    flatten : bool
+        Backward compatible keyword, superseded by `as_grey`.
+
     plugin_args : keywords
         Passed to the given plugin.
 
