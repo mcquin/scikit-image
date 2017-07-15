@@ -136,6 +136,13 @@ if __name__ == "__main__":
         ],
         install_requires=INSTALL_REQUIRES,
         requires=REQUIRES,
+        extras_require={
+            "doc": [
+                "numpydoc",
+                "sphinx",
+                "sphinx-gallery"
+            ]
+        },
         packages=setuptools.find_packages(exclude=['doc']),
         include_package_data=True,
         zip_safe=False,  # the package can run out of an .egg file
